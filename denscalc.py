@@ -12,7 +12,7 @@ def density_calculator():
         mas = float(mass_entry.get())
         dens = round(mas / vol, 3)
         calculated_density = ttk.Label(density_w, text=f"{dens} {unit_var2.get()}/{unit_var.get()}", font=("Helvetica", 20))
-        calculated_density.place(x=240, y=320)
+        calculated_density.place(x=240, y=320, width=200)
 
     density_w = tk.Toplevel()
     density_w.title("Sűrűség Kalkulátor")
@@ -26,17 +26,22 @@ def density_calculator():
     volume_entry = ttk.Entry(density_w)
     mass_entry = ttk.Entry(density_w)
 
+    style = ttk.Style()
+    style.configure("my.TMenubutton", font=("Helvetica", 18))
+
     unit_label = ttk.Label(density_w, text="Mértékegység:", font=("Helvetica", 20))
     unit_label.place(x=80, y=180)
     unit_label = ttk.Label(density_w, text="Mértékegység:", font=("Helvetica", 20))
     unit_label.place(x=400, y=180)
 
     unit_var = tk.StringVar()
-    unit_entry = ttk.OptionMenu(density_w, unit_var, VOLUME[0], *VOLUME)
+    unit_entry = ttk.OptionMenu(density_w, unit_var, VOLUME[0], *VOLUME, style="my.TMenubutton")
     unit_entry.place(x=80, y=230)
     unit_var2 = tk.StringVar()
-    unit_entry2 = ttk.OptionMenu(density_w, unit_var2, MASS[0], *MASS)
+    unit_entry2 = ttk.OptionMenu(density_w, unit_var2, MASS[0], *MASS, style="my.TMenubutton")
     unit_entry2.place(x=400, y=230)
+
+    ttk.Label(density_w, text="A számokat tizedespontot használva adja meg!").place(x=30, y=370)
 
     title_label.place(x=140, y=0)
     volume.place(x=80, y=100)
@@ -45,4 +50,4 @@ def density_calculator():
     volume_entry.place(x=80, y=150)
     mass_entry.place(x=400, y=150)
     done_button = ttk.Button(density_w, text="Számol", command=density)
-    done_button.place(x=480, y=350)
+    done_button.place(x=520, y=370)

@@ -11,8 +11,18 @@ def volume_calculator():
         dens = float(density_entry.get())
         mas = float(mass_entry.get())
         dens = round(mas / dens, 3)
-        calculated_volume = ttk.Label(volume_w, text=f"{dens}", font=("Helvetica", 20))
-        calculated_volume.place(x=240, y=320)
+        if unit_var.get() == "g/cm^3" and unit_var2.get() == "g":
+            calculated_volume = ttk.Label(volume_w, text=f"{dens} cm^3", font=("Helvetica", 20))
+            calculated_volume.place(x=240, y=320, width=200)
+        elif unit_var.get() == "kg/m^3" and unit_var2.get() == "kg":
+            calculated_volume = ttk.Label(volume_w, text=f"{dens} m^3", font=("Helvetica", 20))
+            calculated_volume.place(x=240, y=320, width=200)
+        elif unit_var.get() == "t/m^3" and unit_var2.get() == "t":
+            calculated_volume = ttk.Label(volume_w, text=f"{dens} m^3", font=("Helvetica", 20))
+            calculated_volume.place(x=240, y=320, width=200)
+        else:
+            ttk.Label(volume_w, text="Válasszon egy megfelelő sűrűség/térfogat mértékegység párt!").place(x=30, y=370)
+
 
     volume_w = tk.Toplevel()
     volume_w.title("Térfogat Kalkulátor")
@@ -26,17 +36,22 @@ def volume_calculator():
     density_entry = ttk.Entry(volume_w)
     mass_entry = ttk.Entry(volume_w)
 
+    style = ttk.Style()
+    style.configure("my.TMenubutton", font=("Helvetica", 18))
+
     unit_label = ttk.Label(volume_w, text="Mértékegység:", font=("Helvetica", 20))
     unit_label.place(x=80, y=180)
     unit_label = ttk.Label(volume_w, text="Mértékegység:", font=("Helvetica", 20))
     unit_label.place(x=400, y=180)
 
     unit_var = tk.StringVar()
-    unit_entry = ttk.OptionMenu(volume_w, unit_var, DENSITY[0], *DENSITY)
+    unit_entry = ttk.OptionMenu(volume_w, unit_var, DENSITY[0], *DENSITY, style="my.TMenubutton")
     unit_entry.place(x=80, y=230)
     unit_var2 = tk.StringVar()
-    unit_entry2 = ttk.OptionMenu(volume_w, unit_var2, MASS[0], *MASS)
+    unit_entry2 = ttk.OptionMenu(volume_w, unit_var2, MASS[0], *MASS, style="my.TMenubutton")
     unit_entry2.place(x=400, y=230)
+
+    ttk.Label(volume_w, text="A számokat tizedespontot használva adja meg!").place(x=30, y=370)
 
     title_label.place(x=140, y=0)
     density.place(x=80, y=100)
@@ -46,4 +61,4 @@ def volume_calculator():
     mass_entry.place(x=400, y=150)
 
     done_button = ttk.Button(volume_w, text="Számol", command=volume)
-    done_button.place(x=480, y=350)
+    done_button.place(x=520, y=370)
